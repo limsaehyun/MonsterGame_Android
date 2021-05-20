@@ -4,14 +4,18 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.media.SoundPool;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,14 +23,16 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
+    Switch soundswitch;
     ImageButton imgbtn;
     ImageView imgbtn2;
     ImageView imgbtn3;
-    Switch soundswitch;
 
+    MediaPlayer background;
     SoundPool sound_coin = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
 
-    public static ImageView rank;
+    ImageView rank;
+    public static int soundcheck = 1;
     public static int count = 0;
     public static int woodsword = 1; // 나무검 기본제공
     public static int stonesword = 0;
@@ -35,36 +41,74 @@ public class MainActivity extends AppCompatActivity {
     public static int diamondsword = 0;
     public static int sword = 1;
     public static int soundset = 1;
-    int count_num = 0;
-    int point_num = 0;
+    public static int count_num;
+    public static int point_num = 0;
+    public static int clear = 0;
+    static int save_check1 = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // 소리
-        int soundld = sound_coin.load(this, R.raw.sound_coin, 1);
+        background = MediaPlayer.create(getBaseContext(), R.raw.background_music);
+//        Log.d("saveCheck", String.valueOf(save_check1));
+//            Log.d("sharedpref동작하나요", "yes or no");
 
-        // 저장 불러오기
-        SharedPreferences pref = getSharedPreferences("save", MODE_PRIVATE);
-        count = pref.getInt("count", 0);
-        stonesword = pref.getInt("stonesword", 0);
-        ironsword = pref.getInt("ironsword", 0);
-        goldsword = pref.getInt("goldsword", 0);
-        diamondsword = pref.getInt("diamondsword", 0);
-        point_num = pref.getInt("point_num", 0);
-        count_num = count;
-        Toast.makeText(MainActivity.this, "데이터 불러오기 성공!", Toast.LENGTH_SHORT).show();
+        if (save_check1 == 0) {
+            save_check1 = 1;
+            SharedPreferences pref = getSharedPreferences("save", MODE_PRIVATE);
+            count = pref.getInt("count", 0);
+            stonesword = pref.getInt("stonesword", 0);
+            ironsword = pref.getInt("ironsword", 0);
+            goldsword = pref.getInt("goldsword", 0);
+            diamondsword = pref.getInt("diamondsword", 0);
+            point_num = pref.getInt("point_num", 0);
+            count_num = count;
+            Toast.makeText(MainActivity.this, "불러오기 중...", Toast.LENGTH_SHORT).show();
+        }
 
         rank = (ImageView)findViewById(R.id.rank);
         imgbtn = (ImageButton)findViewById(R.id.monster);
         TextView count_num = (TextView) findViewById(R.id.point);
-        soundswitch = (Switch)findViewById(R.id.soundsetting);
 
+        if(clear == 1) { // 초기화
+            clear = 0;
+            soundcheck = 1;
+            count = 0;
+            woodsword = 1;
+            stonesword = 0;
+            ironsword = 0;
+            goldsword = 0;
+            diamondsword = 0;
+            sword = 1;
+            soundset = 1;
+            point_num = 0;
+            Toast.makeText(MainActivity.this, "초기화 중...", Toast.LENGTH_SHORT).show();
+        }
+
+        // 소리
+        int soundld = sound_coin.load(this, R.raw.sound_coin, 1);
+
+        // 음악 체크
+        SharedPreferences musicpref = getSharedPreferences("music_save", MODE_PRIVATE);
+        int sw_mc = musicpref.getInt("music_boolean", 1);
+
+        if (sw_mc == 1) {
+            if(background != null && !background.isPlaying()) {
+                background.start();
+                Log.d("testtest", "2");
+            }
+        }
+        else {
+            Log.d("testtest", "1");
+            background.stop();
+            background.reset();
+            background.release();
+            background = null;
+        }
 
         // 가장 강한거 자동 장착
-        Toast.makeText(MainActivity.this, "검 자동 장착 중...", Toast.LENGTH_SHORT).show();
         if (diamondsword == 1) {
             sword = 5;
             rank.setImageResource(R.drawable.diamond);
@@ -83,6 +127,7 @@ public class MainActivity extends AppCompatActivity {
         }
         else if (woodsword == 1) {
             sword = 1;
+            rank.setImageResource(R.drawable.wood);
         }
 
         imgbtn.setOnClickListener(new View.OnClickListener(){
@@ -106,10 +151,11 @@ public class MainActivity extends AppCompatActivity {
                     count = count + 5;
                 }
 
-                count_num.setText(""+count);
+                count_num.setText("" + count);
 
-                if(soundset == 1)
+                if(soundcheck == 1) {
                     sound_coin.play(soundld, 1F, 1F, 0, 0, 1F);
+                }
 
                 if(count >= 400) {
                     Toast.makeText(MainActivity.this, "400점을 획득하여 클리어 하셨습니다!", Toast.LENGTH_SHORT).show();
@@ -144,7 +190,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-
         // 저장
         SharedPreferences sharedPreferences = getSharedPreferences("save", 0);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -158,5 +203,7 @@ public class MainActivity extends AppCompatActivity {
 
         editor.commit();
     }
+
+
 
 }
