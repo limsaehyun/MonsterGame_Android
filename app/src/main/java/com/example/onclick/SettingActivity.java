@@ -107,8 +107,8 @@ public class SettingActivity extends AppCompatActivity {
                     editor.putInt("music_boolean", 1);
                     editor.commit();
                 }
-                Intent intent = new Intent(SettingActivity.this, MainActivity.class);
-                startActivity(intent);
+                //Intent intent = new Intent(SettingActivity.this, MainActivity.class);
+                //startActivity(intent);
 
                 finish();
             }
@@ -117,8 +117,8 @@ public class SettingActivity extends AppCompatActivity {
         return_.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SettingActivity.this, MainActivity.class);
-                startActivity(intent);
+                //Intent intent = new Intent(SettingActivity.this, MainActivity.class);
+                //startActivity(intent);
 
                 finish();
             }

@@ -10,24 +10,24 @@
         android:id="@+id/gold_lore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
         android:layout_marginEnd="80dp"
+        android:layout_marginBottom="76dp"
         android:text="가격 : 40\n공격력: 4"
+        app:layout_constraintBottom_toTopOf="@+id/diamond_lore"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/gold_sword"
-        app:layout_constraintTop_toBottomOf="@+id/iron_lore" />
+        app:layout_constraintHorizontal_bias="0.817"
+        app:layout_constraintStart_toEndOf="@+id/gold_sword" />
 
     <TextView
         android:id="@+id/iron_lore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginBottom="76dp"
         android:text="가격 : 30\n공격력: 3"
+        app:layout_constraintBottom_toTopOf="@+id/gold_lore"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.596"
-        app:layout_constraintStart_toEndOf="@+id/iron_sword"
-        app:layout_constraintTop_toBottomOf="@+id/stone_lore" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/gold_lore" />
 
     <TextView
         android:id="@+id/shop_title"
@@ -101,13 +101,13 @@
         android:id="@+id/wood_lore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="172dp"
         android:layout_marginEnd="76dp"
+        android:layout_marginBottom="72dp"
         android:text="가격: 0\n공격력: 1"
+        app:layout_constraintBottom_toTopOf="@+id/stone_lore"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/wood_sword"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.789"
+        app:layout_constraintStart_toEndOf="@+id/wood_sword" />
 
     <Button
         android:id="@+id/wood_buy"
@@ -219,24 +219,25 @@
         android:id="@+id/stone_lore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
         android:layout_marginEnd="76dp"
+        android:layout_marginBottom="52dp"
         android:text="가격 : 20\n공격력: 2"
+        app:layout_constraintBottom_toTopOf="@+id/iron_lore"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/stone_sword"
-        app:layout_constraintTop_toBottomOf="@+id/wood_lore" />
+        app:layout_constraintHorizontal_bias="0.8"
+        app:layout_constraintStart_toEndOf="@+id/stone_sword" />
 
     <TextView
         android:id="@+id/diamond_lore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="80dp"
+        android:layout_marginEnd="116dp"
+        android:layout_marginBottom="60dp"
         android:text="가격 : 50\n공격력: 5"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gold_lore"
-        app:layout_constraintVertical_bias="0.52" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/diamond_sword" />
 
     <Button
         android:id="@+id/back"
