@@ -34,7 +34,6 @@ public class SettingActivity extends AppCompatActivity {
         soundsw = (Switch)findViewById(R.id.soundsetting);
         musicsw = (Switch)findViewById(R.id.music);
 
-
         SharedPreferences musicpref = getSharedPreferences("music_save", MODE_PRIVATE);
         sw_mc = musicpref.getInt("music_boolean", 1);
         if(sw_mc == 1) {
@@ -107,18 +106,15 @@ public class SettingActivity extends AppCompatActivity {
                     editor.putInt("music_boolean", 1);
                     editor.commit();
                 }
-                //Intent intent = new Intent(SettingActivity.this, MainActivity.class);
-                //startActivity(intent);
 
                 finish();
             }
         });
 
+        // 메인 이동
         return_.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent intent = new Intent(SettingActivity.this, MainActivity.class);
-                //startActivity(intent);
 
                 finish();
             }

@@ -52,11 +52,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        Log.d("saveCheck", String.valueOf(save_check1));
-//            Log.d("sharedpref동작하나요", "yes or no");
-
         background = MediaPlayer.create(getBaseContext(), R.raw.background_music);
 
+        // 한 번만 불러오기
         if (save_check1 == 0) {
             save_check1 = 1;
             SharedPreferences pref = getSharedPreferences("save", MODE_PRIVATE);
@@ -116,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                // 칼에 따라 포인트 지급
                 if (sword == 1) {
                     count = count + 1;
                 } else if (sword == 2) {
@@ -134,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
                     sound_coin.play(soundld, 1F, 1F, 0, 0, 1F);
                 }
 
+                // 엔딩
                 if (count >= 400) {
                     Toast.makeText(MainActivity.this, "400점을 획득하여 클리어 하셨습니다!", Toast.LENGTH_SHORT).show();
                     imgbtn.setImageResource(R.drawable.mumu);
@@ -141,6 +141,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // 상점 이동
         imgbtn2 = (ImageView) findViewById(R.id.goto_shop);
         imgbtn2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -151,6 +152,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // 설정 이동
         imgbtn3 = (ImageView) findViewById(R.id.settings);
         imgbtn3.setOnClickListener(new View.OnClickListener() {
             @Override
